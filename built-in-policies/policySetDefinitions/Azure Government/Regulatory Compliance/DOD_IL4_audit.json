@@ -4,7 +4,7 @@
     "policyType": "BuiltIn",
     "description": "This initiative includes audit and virtual machine extension deployment policies that address a subset of DOD Impact Level 4 (IL4) controls. Additional policies will be added in upcoming releases. For more information, visit https://aka.ms/dodil4-blueprint.",
     "metadata": {
-      "version": "6.1.0-preview",
+      "version": "8.0.1-preview",
       "category": "Regulatory Compliance",
       "preview": true
     },
@@ -182,7 +182,7 @@
       "listOfResourceTypes": {
         "type": "array",
         "metadata": {
-          "displayName": "List of resource types that should have diagnostic logs enabled"
+          "displayName": "List of resource types that should have resource logs enabled"
         },
         "defaultValue": [
           "Microsoft.AnalysisServices/servers",
@@ -297,6 +297,14 @@
         },
         "defaultValue": [ "usdodcentral" ]
       },
+      "NetworkWatcherResourceGroupName": {
+        "type": "String",
+        "defaultValue": "NetworkWatcherRG",
+        "metadata": {
+          "displayName": "NetworkWatcher resource group name",
+          "description": "Name of the resource group of NetworkWatcher, such as NetworkWatcherRG"
+        }
+      },
       "MinimumTLSVersionForWindowsServers": {
         "type": "string",
         "metadata": {
@@ -326,10 +334,11 @@
         "defaultValue": "11"
       },
       "WindowsPythonLatestVersionForAppServices": {
-        "type": "string",
+        "type": "String",
         "metadata": {
           "displayName": "Latest Windows Python version",
-          "description": "Latest supported Python version for App Services"
+          "description": "Latest supported Python version for App Services",
+          "deprecated": true
         },
         "defaultValue": "3.6"
       },
@@ -407,14 +416,15 @@
       },
       "ensureDotNetFrameworkLatestForFunctionAppEffect": {
         "type": "string",
-        "defaultValue": "AuditIfNotExists",
+        "defaultValue": "Disabled",
         "allowedValues": [
           "AuditIfNotExists",
           "Disabled"
         ],
         "metadata": {
           "displayName": "Effect for policy: Ensure that '.NET Framework' version is the latest, if used as a part of the Function App",
-          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects"
+          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects",
+          "deprecated": true
         }
       },
       "sqlDbEncryptionMonitoringEffect": {
@@ -710,14 +720,15 @@
       },
       "vulnerabilityAssessmentMonitoringEffect": {
         "type": "string",
-        "defaultValue": "AuditIfNotExists",
+        "defaultValue": "Disabled",
         "allowedValues": [
           "AuditIfNotExists",
           "Disabled"
         ],
         "metadata": {
           "displayName": "Effect for policy: Vulnerabilities should be remediated by a Vulnerability Assessment solution",
-          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects"
+          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects",
+          "deprecated": true
         }
       },
       "geoRedundancyEnabledForAzureDatabaseForMySQLEffect": {
@@ -734,14 +745,15 @@
       },
       "ensureDotNetFrameworkLatestForWebAppEffect": {
         "type": "string",
-        "defaultValue": "AuditIfNotExists",
+        "defaultValue": "Disabled",
         "allowedValues": [
           "AuditIfNotExists",
           "Disabled"
         ],
         "metadata": {
           "displayName": "Effect for policy: Ensure that '.NET Framework' version is the latest, if used as a part of the Web app",
-          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects"
+          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects",
+          "deprecated": true
         }
       },
       "systemUpdatesMonitoringEffect": {
@@ -952,14 +964,15 @@
       },
       "ensurePHPVersionLatestForFunctionAppEffect": {
         "type": "string",
-        "defaultValue": "AuditIfNotExists",
+        "defaultValue": "Disabled",
         "allowedValues": [
           "AuditIfNotExists",
           "Disabled"
         ],
         "metadata": {
           "displayName": "Effect for policy: Ensure that 'PHP version' is the latest, if used as a part of the Function app",
-          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects"
+          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects",
+          "deprecated": true
         }
       },
       "sqlServerAdvancedDataSecurityMonitoringEffect": {
@@ -1025,14 +1038,15 @@
       },
       "securityContactPhoneNumberShouldBeProvidedForSubscriptionEffect": {
         "type": "string",
-        "defaultValue": "AuditIfNotExists",
+        "defaultValue": "Disabled",
         "allowedValues": [
           "AuditIfNotExists",
           "Disabled"
         ],
         "metadata": {
           "displayName": "Effect for policy: A security contact phone number should be provided for your subscription",
-          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects"
+          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects",
+          "deprecated": true
         }
       },
       "aadAuthenticationInServiceFabricMonitoringEffect": {
@@ -1086,14 +1100,15 @@
       },
       "ensureDotNetFrameworkLatestForAPIAppEffect": {
         "type": "string",
-        "defaultValue": "AuditIfNotExists",
+        "defaultValue": "Disabled",
         "allowedValues": [
           "AuditIfNotExists",
           "Disabled"
         ],
         "metadata": {
           "displayName": "Effect for policy: Ensure that '.NET Framework' version is the latest, if used as a part of the API app",
-          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects"
+          "description": "Azure Policy effect for this policy; for more information about effects, visit https://aka.ms/policyeffects",
+          "deprecated": true
         }
       },
       "vmssSystemUpdatesMonitoringEffect": {
@@ -1493,21 +1508,6 @@
         },
         "groupNames": [
           "NIST_SP_800-53_R4_SC-8(1)"
-        ]
-      },
-      {
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/760a85ff-6162-42b3-8d70-698e268f648c",
-        "policyDefinitionReferenceId": "vulnerabilitiesShouldBeRemediatedByAVulnerabilityAssessmentSolution",
-        "parameters": {
-          "effect": {
-            "value": "[parameters('vulnerabilityAssessmentMonitoringEffect')]"
-          }
-        },
-        "groupNames": [
-          "NIST_SP_800-53_R4_AU-6(5)",
-          "NIST_SP_800-53_R4_IR-6(2)",
-          "NIST_SP_800-53_R4_RA-5",
-          "NIST_SP_800-53_R4_SI-2"
         ]
       },
       {
@@ -2199,42 +2199,6 @@
         ]
       },
       {
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c2e7ca55-f62c-49b2-89a4-d41eb661d2f0",
-        "policyDefinitionReferenceId": "ensureDotNetFrameworkLatestForAPIApp",
-        "parameters": {
-          "effect": {
-            "value": "[parameters('ensureDotNetFrameworkLatestForAPIAppEffect')]"
-          }
-        },
-        "groupNames": [
-          "NIST_SP_800-53_R4_SI-2(6)"
-        ]
-      },
-      {
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/10c1859c-e1a7-4df3-ab97-a487fa8059f6",
-        "policyDefinitionReferenceId": "ensureDotNetFrameworkLatestForFunctionApp",
-        "parameters": {
-          "effect": {
-            "value": "[parameters('ensureDotNetFrameworkLatestForFunctionAppEffect')]"
-          }
-        },
-        "groupNames": [
-          "NIST_SP_800-53_R4_SI-2(6)"
-        ]
-      },
-      {
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/843664e0-7563-41ee-a9cb-7522c382d2c4",
-        "policyDefinitionReferenceId": "ensureDotNetFrameworkLatestForWebApp",
-        "parameters": {
-          "effect": {
-            "value": "[parameters('ensureDotNetFrameworkLatestForWebAppEffect')]"
-          }
-        },
-        "groupNames": [
-          "NIST_SP_800-53_R4_SI-2(6)"
-        ]
-      },
-      {
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/991310cd-e9f3-47bc-b7b6-f57b557d07db",
         "policyDefinitionReferenceId": "ensureHTTPVersionLatestForAPIApp",
         "parameters": {
@@ -2331,21 +2295,6 @@
         ]
       },
       {
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/ab965db2-d2bf-4b64-8b39-c38ec8179461",
-        "policyDefinitionReferenceId": "ensurePHPVersionLatestForFunctionApp",
-        "parameters": {
-          "effect": {
-            "value": "[parameters('ensurePHPVersionLatestForFunctionAppEffect')]"
-          },
-          "phpLatestVersion": {
-            "value": "[parameters('PHPLatestVersionForAppServices')]"
-          }
-        },
-        "groupNames": [
-          "NIST_SP_800-53_R4_SI-2(6)"
-        ]
-      },
-      {
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7261b898-8a84-4db8-9e04-18527132abb3",
         "policyDefinitionReferenceId": "ensurePHPVersionLatestForWebApp",
         "parameters": {
@@ -2367,9 +2316,6 @@
           "effect": {
             "value": "[parameters('ensurePythonVersionLatestForAPIAppEffect')]"
           },
-          "windowsPythonLatestVersion": {
-            "value": "[parameters('WindowsPythonLatestVersionForAppServices')]"
-          },
           "linuxPythonLatestVersion": {
             "value": "[parameters('LinuxPythonLatestVersionForAppServices')]"
           }
@@ -2385,9 +2331,6 @@
           "effect": {
             "value": "[parameters('ensurePythonVersionLatestForFunctionAppEffect')]"
           },
-          "windowsPythonLatestVersion": {
-            "value": "[parameters('WindowsPythonLatestVersionForAppServices')]"
-          },
           "linuxPythonLatestVersion": {
             "value": "[parameters('LinuxPythonLatestVersionForAppServices')]"
           }
@@ -2402,9 +2345,6 @@
         "parameters": {
           "effect": {
             "value": "[parameters('ensurePythonVersionLatestForWebAppEffect')]"
-          },
-          "windowsPythonLatestVersion": {
-            "value": "[parameters('WindowsPythonLatestVersionForAppServices')]"
           },
           "linuxPythonLatestVersion": {
             "value": "[parameters('LinuxPythonLatestVersionForAppServices')]"
@@ -2487,18 +2427,6 @@
         ]
       },
       {
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/b4d66858-c922-44e3-9566-5cdb7a7be744",
-        "policyDefinitionReferenceId": "securityContactPhoneNumberShouldBeProvidedForSubscription",
-        "parameters": {
-          "effect": {
-            "value": "[parameters('securityContactPhoneNumberShouldBeProvidedForSubscriptionEffect')]"
-          }
-        },
-        "groupNames": [
-          "NIST_SP_800-53_R4_SI-4(12)"
-        ]
-      },
-      {
         "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/efbde977-ba53-4479-b8e9-10b957924fbf",
         "policyDefinitionReferenceId": "logAnalyticsAgentUnstalledVMScaleSets",
         "parameters": {
@@ -2540,6 +2468,9 @@
         "parameters": {
           "listOfLocations": {
             "value": "[parameters('listOfLocationsForNetworkWatcher')]"
+          },
+          "resourceGroupName": {
+            "value": "[parameters('NetworkWatcherResourceGroupName')]"
           }
         },
         "groupNames": [

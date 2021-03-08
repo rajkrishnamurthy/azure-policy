@@ -3,11 +3,10 @@
         "displayName": "Kubernetes cluster pods and containers should only use allowed SELinux options",
         "policyType": "BuiltIn",
         "mode": "Microsoft.Kubernetes.Data",
-        "description": "This policy ensures pods and containers only use allowed SELinux options in a Kubernetes cluster. For instructions on using this policy, visit https://aka.ms/kubepolicydoc.",
+        "description": "This policy ensures pods and containers only use allowed SELinux options in a Kubernetes cluster. This policy is generally available for Kubernetes Service (AKS), and preview for AKS Engine and Azure Arc enabled Kubernetes. For instructions on using this policy, visit https://aka.ms/kubepolicydoc.",
         "metadata": {
-            "version": "1.0.0-preview",
-            "category": "Kubernetes",
-            "preview": true
+            "version": "3.0.1",
+            "category": "Kubernetes"
         },
         "parameters": {
             "effect": {
@@ -34,6 +33,14 @@
                     "gatekeeper-system",
                     "azure-arc"
                 ]
+            },
+            "namespaces": {
+                "type": "Array",
+                "metadata": {
+                  "displayName": "Namespace inclusions",
+                  "description": "List of Kubernetes namespaces to only include in policy evaluation. An empty list means the policy is applied to all resources in all namespaces."
+                },
+                "defaultValue": []
             },
             "allowedSELinuxOptions": {
                 "type": "Object",
@@ -81,8 +88,7 @@
                 "field": "type",
                 "in": [
                     "AKS Engine",
-                    "Microsoft.Kubernetes/connectedClusters",
-                    "Microsoft.ContainerService/managedClusters"
+                    "Microsoft.Kubernetes/connectedClusters"
                 ]
             },
             "then": {
@@ -90,6 +96,8 @@
                 "details": {
                     "constraintTemplate": "https://raw.githubusercontent.com/Azure/azure-policy/master/built-in-references/Kubernetes/selinux/template.yaml",
                     "constraint": "https://raw.githubusercontent.com/Azure/azure-policy/master/built-in-references/Kubernetes/selinux/constraint.yaml",
+                    "excludedNamespaces": "[parameters('excludedNamespaces')]",
+                    "namespaces": "[parameters('namespaces')]",
                     "values": {
                         "excludedNamespaces": "[parameters('excludedNamespaces')]",
                         "allowedSELinuxOptions": "[parameters('allowedSELinuxOptions').options]"

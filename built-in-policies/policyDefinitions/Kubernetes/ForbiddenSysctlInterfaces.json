@@ -3,11 +3,10 @@
     "displayName": "Kubernetes cluster containers should not use forbidden sysctl interfaces",
     "policyType": "BuiltIn",
     "mode": "Microsoft.Kubernetes.Data",
-    "description": "This policy ensures containers do not use forbidden sysctl interfaces in a Kubernetes cluster. For instructions on using this policy, visit https://aka.ms/kubepolicydoc.",
+    "description": "This policy ensures containers do not use forbidden sysctl interfaces in a Kubernetes cluster. This policy is generally available for Kubernetes Service (AKS), and preview for AKS Engine and Azure Arc enabled Kubernetes. For instructions on using this policy, visit https://aka.ms/kubepolicydoc.",
     "metadata": {
-      "version": "1.0.0-preview",
-      "category": "Kubernetes",
-      "preview": true
+      "version": "3.0.1",
+      "category": "Kubernetes"
     },
     "parameters": {
       "effect": {
@@ -31,6 +30,14 @@
         },
         "defaultValue": ["kube-system", "gatekeeper-system", "azure-arc"]
       },
+      "namespaces": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Namespace inclusions",
+          "description": "List of Kubernetes namespaces to only include in policy evaluation. An empty list means the policy is applied to all resources in all namespaces."
+        },
+        "defaultValue": []
+      },
       "forbiddenSysctls": {
         "type": "Array",
         "metadata": {
@@ -44,8 +51,7 @@
         "field": "type",
         "in": [
           "AKS Engine",
-          "Microsoft.Kubernetes/connectedClusters",
-          "Microsoft.ContainerService/managedClusters"
+          "Microsoft.Kubernetes/connectedClusters"
         ]
       },
       "then": {
@@ -53,6 +59,8 @@
         "details": {
           "constraintTemplate": "https://raw.githubusercontent.com/Azure/azure-policy/master/built-in-references/Kubernetes/forbidden-sysctl-interfaces/template.yaml",
           "constraint": "https://raw.githubusercontent.com/Azure/azure-policy/master/built-in-references/Kubernetes/forbidden-sysctl-interfaces/constraint.yaml",
+          "excludedNamespaces": "[parameters('excludedNamespaces')]",
+          "namespaces": "[parameters('namespaces')]",
           "values": {
             "forbiddenSysctls": "[parameters('forbiddenSysctls')]",
             "excludedNamespaces": "[parameters('excludedNamespaces')]"
